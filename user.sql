@@ -1,4 +1,3 @@
-drop database if exists `userdb`;
 create database `userdb`;
 use userdb;
 create table `user`(

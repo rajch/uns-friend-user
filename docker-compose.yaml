@@ -5,7 +5,7 @@ services:
     image: mysql:5.7
     volumes:
       - ./data:/var/lib/mysql
-#      - user.sql:/docker-entrypoint-initdb.d/user.sql
+      - ./user.sql:/docker-entrypoint-initdb.d/user.sql
     ports:
       - 3306:3306
     environment:
