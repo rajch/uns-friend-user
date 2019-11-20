@@ -10,6 +10,7 @@ import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerOptions;
+import io.vertx.core.json.JsonArray;
 import io.vertx.core.json.JsonObject;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
@@ -52,10 +53,10 @@ public class MainVerticle extends AbstractVerticle{
 		//call to different post and get api
 		router.post("/user").handler(this::signUp);
 		router.post("/user/signin").handler(this::signIn);
-//		router.get("/user").handler(this::getUsers);
+		router.get("/user").handler(this::getUsers);
 //		router.delete("/user").handler(this::deleteUser);
 			
-  	String host = "IN-SaxenaPr-1";
+  	String host = "localhost";
   	int port = 8080;
       HttpServerOptions op = new HttpServerOptions();
 
@@ -109,38 +110,16 @@ public class MainVerticle extends AbstractVerticle{
 			}
 	  
   }
-//
-//
-//private void getUsers(RoutingContext routingContext) {
-//	String token = routingContext.request().getParam("")
-//	String mail = routingContext.request().getParam("mail");
-//	System.out.println("mail:: " + mail);
-//	JsonObject request = new JsonObject().put("mail", mail);
-//	EventBus eb = vertx.eventBus();
-//	//communicating with customerDetailVerticle
-//	eb.send("CustomerDetailsPage", request, replyHandler -> {
-//		if(replyHandler.succeeded()) {
-//			routingContext.response()
-//				.putHeader("content-type", "application/json")
-//				.end(replyHandler.result().body().toString());
-//		}
-//	});
-//}
-//  private void deleteUser(RoutingContext routingContext) {
-//	  JsonObject user = routingContext.getBodyAsJson();
-//	  //some code with if
-//	  
-//	  if() {
-//		  routingContext.response()
-//		  	.setStatusCode(200)
-//		  	.end();
-//	  }
-//	  else {
-//		  routingContext.response()
-//		  	.setStatusCode(403)
-//		  	.end();
-//	  }
-//  }
-  
+
+
+  private void getUsers(RoutingContext routingContext) {
+	  String token = routingContext.request().getParam("");
+	  JsonArray arr = db.getUsers();
+	  routingContext.response()
+	  	.putHeader("content-type", "application/json")
+	  	.end(arr.toString());
+	
+  }
+
   
 }

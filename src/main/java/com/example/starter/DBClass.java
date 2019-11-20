@@ -3,6 +3,7 @@ package com.example.starter;
 import java.nio.charset.Charset;
 import java.sql.Connection;
 
+import io.vertx.core.json.JsonArray;
 //import org.json.JSONException;
 import io.vertx.core.json.JsonObject;
 import java.sql.DriverManager;
@@ -16,7 +17,7 @@ public class DBClass {
 	private static Connection dbconnection;
 	public DBClass() {
 		try {
-			dbconnection = DriverManager.getConnection("jdbc:mysql://129.221.48.135:3307/userdb", "root", "something");
+			dbconnection = DriverManager.getConnection("jdbc:mysql://129.221.92.199:3307/userdb", "root", "something");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -40,6 +41,8 @@ public JsonObject registerUser(String name, String email, String password) {
 		//TODO: generate userID
 		obj = new JsonObject();
 		obj.put("Token", tokenObj);
+		System.out.println(obj.toString());
+		
 		
 	} catch (SQLException e) {
 		// TODO Auto-generated catch block
@@ -83,6 +86,37 @@ public JsonObject authenticateUser(String email, String password) {
 	}
 	return obj;
 }
+
+public JsonArray getUsers() {
+	JsonArray obj = new JsonArray();
+	try {
+		PreparedStatement ps = dbconnection.prepareStatement("select  * from userdb.user");
+		ResultSet rs = ps.executeQuery();
+		while (rs.next()) {
+			String emailid = rs.getString("emailid");
+			String userName = rs.getString("username");
+			String userID = rs.getString("userid");
+			
+			System.out.println(rs.toString());
+			
+			JsonObject user = new JsonObject();
+			user.put("name", userName);
+			user.put("email", emailid);
+			user.put("userid",userID);
+			//user.put("token", "Token");			
+		    obj.add(user);
+			
+		}
+	} catch (SQLException e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	} catch (Exception e) {
+		// TODO Auto-generated catch block
+		e.printStackTrace();
+	}
+	return obj;
+}
+
 //	public static void main(String[] args) {
 //		// TODO Auto-generated method stub
 //		
