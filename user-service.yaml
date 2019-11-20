@@ -1,0 +1,135 @@
+openapi: 3.0.0
+info:
+  title: FriendBook Feed Service
+  version: 0.1.0
+  contact: {}
+  description: desc
+servers: []
+paths:
+  /user/signin:
+    post:
+      summary: User sign in
+      description: Login with email and password
+      parameters: []
+      operationId: signin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+        description: email and password
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserToken'
+        '403':
+          description: Forbidden
+    parameters: []
+  /user:
+    get:
+      summary: get active users
+      tags: []
+      responses:
+        '200':
+          description: OK - all active users
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '403':
+          description: Forbidden
+      description: Get all users
+      requestBody: {}
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: token
+    post:
+      summary: sign up users
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserToken'
+        '500':
+          description: Internal Server Error
+      description: Register a new user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                email:
+                  type: string
+                password:
+                  type: string
+              required:
+                - name
+                - email
+                - password
+    delete:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+      description: Deactivate user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserToken'
+        description: User token to deactive respective user
+  /user/signout:
+    post:
+      summary: ''
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+      description: Sign Out an user
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UserToken'
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        userid:
+          type: string
+        username:
+          type: string
+    UserToken:
+      title: UserToken
+      type: object
+      properties:
+        userid:
+          type: string
+        username:
+          type: string
+        expiry:
+          type: string
+  callbacks: {}
+  links: {}
+security: []

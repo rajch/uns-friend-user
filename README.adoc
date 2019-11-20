@@ -15,12 +15,32 @@ To run your application in containers:
 ```
 $ docker-compose up -d
 ```
-x
+
+== APIs
+
+Sign up/Register (POST)
+```
+/user
+```
+
+Sign in (POST)
+```
+/user/signin
+````
+
+Delete User (DELETE)
+```
+/user
+```
+
+Get list of Users (GET)
+```
+\user
+```
+
 == Help
 
 * https://vertx.io/docs/[Vert.x Documentation]
 * https://stackoverflow.com/questions/tagged/vert.x?sort=newest&pageSize=15[Vert.x Stack Overflow]
 * https://groups.google.com/forum/?fromgroups#!forum/vertx[Vert.x User Group]
 * https://gitter.im/eclipse-vertx/vertx-users[Vert.x Gitter]
-
-
