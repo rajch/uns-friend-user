@@ -6,21 +6,16 @@ This application was generated using http://start.vertx.io
 
 == Building
 
-To launch your tests:
+To package your application and form an image which is sent to the local docker daemon:
 ```
-./mvnw clean test
-```
-
-To package your application:
-```
-./mvnw clean package
+$ mvn compile jib:dockerBuild
 ```
 
-To run your application:
+To run your application in containers:
 ```
-./mvnw clean compile exec:java
+$ docker-compose up -d
 ```
-
+x
 == Help
 
 * https://vertx.io/docs/[Vert.x Documentation]
