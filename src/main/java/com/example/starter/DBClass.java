@@ -16,7 +16,7 @@ public class DBClass {
 	private static Connection dbconnection;
 	public DBClass() {
 		try {
-			dbconnection = DriverManager.getConnection("jdbc:mysql://129.221.48.135:3307/userdb", "root", "something");
+			dbconnection = DriverManager.getConnection("jdbc:mysql://129.221.92.199:3307/userdb", "root", "something");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
