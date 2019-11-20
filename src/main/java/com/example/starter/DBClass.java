@@ -83,15 +83,15 @@ public JsonObject authenticateUser(String email, String password) {
 	}
 	return obj;
 }
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-		
-		DBClass db = new DBClass();
-		JsonObject obj = db.authenticateUser("pramodh.email", "pramodh");
-		System.out.println(obj.toString());
-		JsonObject obj1 = db.registerUser("Ratna1", "ratna.email1", "ratna.password");
-		System.out.println(obj1.toString());
-		
-	}
+//	public static void main(String[] args) {
+//		// TODO Auto-generated method stub
+//		
+//		DBClass db = new DBClass();
+//		JsonObject obj = db.authenticateUser("pramodh.email", "pramodh");
+//		System.out.println(obj.toString());
+//		JsonObject obj1 = db.registerUser("Ratna1", "ratna.email1", "ratna.password");
+//		System.out.println(obj1.toString());
+//		
+//	}
 
 }

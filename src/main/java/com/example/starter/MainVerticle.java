@@ -6,6 +6,7 @@ import java.util.Set;
 import io.vertx.core.AbstractVerticle;
 import io.vertx.core.DeploymentOptions;
 import io.vertx.core.Promise;
+import io.vertx.core.Vertx;
 import io.vertx.core.eventbus.EventBus;
 import io.vertx.core.http.HttpMethod;
 import io.vertx.core.http.HttpServerOptions;
@@ -16,8 +17,14 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import com.example.starter.DBClass;
 
+
 public class MainVerticle extends AbstractVerticle{
 	DBClass db = new DBClass();
+	public static void main(String[] args) {
+		System.out.println("mongo app");
+    	Vertx vertx = Vertx.vertx();
+    	vertx.deployVerticle(new MainVerticle());
+	}
   @Override
   public void start(Promise<Void> startPromise) throws Exception {
 	  
