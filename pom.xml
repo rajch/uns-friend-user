@@ -55,6 +55,18 @@
       <groupId>io.vertx</groupId>
       <artifactId>vertx-mysql-client</artifactId>
     </dependency>
+    <!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
+    <!-- <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.6</version>
+    </dependency> -->
+    <dependency>
+			<groupId>org.mariadb.jdbc</groupId>
+			<artifactId>mariadb-java-client</artifactId>
+			<version>2.5.1</version>
+		</dependency>
+
     <dependency>
       <groupId>io.vertx</groupId>
       <artifactId>vertx-junit5</artifactId>
@@ -90,6 +102,16 @@
       <plugin>
         <artifactId>maven-compiler-plugin</artifactId>
         <version>${maven-compiler-plugin.version}</version>
+      </plugin>
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>1.8.0</version>
+        <configuration>
+          <to>
+            <image>user-service</image>
+          </to>
+        </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-shade-plugin</artifactId>
@@ -136,6 +158,35 @@
             <argument>run</argument>
             <argument>${main.verticle}</argument>
           </arguments>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>com.spotify</groupId>
+        <artifactId>docker-maven-plugin</artifactId>
+        <version>0.2.8</version>
+        <executions>
+          <execution>
+            <id>docker</id>
+            <phase>package</phase>
+            <goals>
+              <goal>build</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <dockerDirectory>${project.basedir}/src/main/docker</dockerDirectory>
+          <!-- Configure the image name -->
+          <imageName>sample/vertx-hello</imageName>
+          <resources>
+            <resource>
+              <targetPath>/verticles</targetPath>
+              <directory>${project.build.directory}</directory>
+              <includes>
+                <include>${project.artifactId}-${project.version}.jar</include>
+              </includes>
+            </resource>
+            <!-- don't forget to also add all the dependencies required by your application -->
+          </resources>
         </configuration>
       </plugin>
     </plugins>
