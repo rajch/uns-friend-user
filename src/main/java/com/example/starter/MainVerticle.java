@@ -17,12 +17,14 @@ import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.CorsHandler;
 import com.example.starter.DBClass;
 
+
 public class MainVerticle extends AbstractVerticle{
 	DBClass db = new DBClass();
-
-	public static void main(String args[])throws Exception {
-		Vertx vertx = Vertx.vertx();
-		vertx.deployVerticle(new MainVerticle());
+  
+	public static void main(String[] args) {
+		System.out.println("user service");
+    	Vertx vertx = Vertx.vertx();
+    	vertx.deployVerticle(new MainVerticle());
 	}
 
   @Override
